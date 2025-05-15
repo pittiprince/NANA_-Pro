@@ -10,10 +10,12 @@ export const KonvaCanva = () => {
     const [selectedId, setSelectedId] = useState(null);
     const [tool, setTool] = useState('');
     const [color, setColor] = useState('#000000');
+    const [isDrawing, setIsDrawing] = useState(false);
     const stageRef = useRef(null);
     const layerRef = useRef(null);
     const [isPanning, setIsPanning] = useState(false);
     const [lastPointerPosition, setLastPointerPosition] = useState(null);
+    const transformerRef = useRef(null);
     
     const [shapesState, {
         set: setShapesState,
@@ -22,6 +24,18 @@ export const KonvaCanva = () => {
         canUndo,
         canRedo
     }] = useUndo([]);
+
+    useEffect(() => {
+        if (selectedId) {
+            const selectedNode = layerRef.current.findOne('#' + selectedId);
+            if (selectedNode) {
+                transformerRef.current.nodes([selectedNode]);
+            }
+        } else {
+            transformerRef.current.nodes([]);
+        }
+        layerRef.current.batchDraw();
+    }, [selectedId]);
 
     const handleWheel = (e) => {
         e.evt.preventDefault();
@@ -46,15 +60,16 @@ export const KonvaCanva = () => {
     };
 
     const handleMouseDown = (e) => {
-        if (e.evt.button === 1) { // Middle mouse button
+        if (e.evt.button === 1) {
             setIsPanning(true);
             setLastPointerPosition(stageRef.current.getPointerPosition());
             return;
         }
 
+        setIsDrawing(true);
         const pos = stageRef.current.getPointerPosition();
         const newShape = {
-            id: Date.now(),
+            id: Date.now().toString(),
             type: tool,
             x: pos.x,
             y: pos.y,
@@ -66,10 +81,11 @@ export const KonvaCanva = () => {
         };
 
         setShapes([...shapes, newShape]);
-        setShapesState([...shapes, newShape]);
     };
 
     const handleMouseMove = (e) => {
+        if (!isDrawing) return;
+
         if (isPanning && lastPointerPosition) {
             const newPos = stageRef.current.getPointerPosition();
             setStagePos({
@@ -80,10 +96,11 @@ export const KonvaCanva = () => {
             return;
         }
 
-        if (!shapes.length) return;
         const pos = stageRef.current.getPointerPosition();
         const lastShape = shapes[shapes.length - 1];
         
+        if (!lastShape) return;
+
         const newShapes = shapes.slice(0, -1);
         switch (lastShape.type) {
             case 'rect':
@@ -94,16 +111,18 @@ export const KonvaCanva = () => {
                 });
                 break;
             case 'circle':
+                const radius = Math.sqrt(
+                    Math.pow(pos.x - lastShape.x, 2) + Math.pow(pos.y - lastShape.y, 2)
+                );
                 newShapes.push({
                     ...lastShape,
-                    width: Math.abs(pos.x - lastShape.x),
-                    height: Math.abs(pos.y - lastShape.y),
+                    radius: radius,
                 });
                 break;
             case 'line':
                 newShapes.push({
                     ...lastShape,
-                    points: [...lastShape.points, pos.x, pos.y],
+                    points: [...lastShape.points.slice(0, -2), pos.x, pos.y],
                 });
                 break;
         }
@@ -111,6 +130,7 @@ export const KonvaCanva = () => {
     };
 
     const handleMouseUp = () => {
+        setIsDrawing(false);
         setIsPanning(false);
         setLastPointerPosition(null);
         if (shapes.length) {
@@ -201,13 +221,12 @@ export const KonvaCanva = () => {
             >
                 <Layer ref={layerRef}>
                     {shapes.map((shape) => {
-                        const isSelected = shape.id === selectedId;
-                        
                         switch (shape.type) {
                             case 'rect':
                                 return (
                                     <Rect
                                         key={shape.id}
+                                        id={shape.id}
                                         {...shape}
                                         draggable
                                         onTransformEnd={(e) => {
@@ -233,8 +252,8 @@ export const KonvaCanva = () => {
                                 return (
                                     <Circle
                                         key={shape.id}
+                                        id={shape.id}
                                         {...shape}
-                                        radius={Math.abs(shape.width)}
                                         draggable
                                     />
                                 );
@@ -242,6 +261,7 @@ export const KonvaCanva = () => {
                                 return (
                                     <Line
                                         key={shape.id}
+                                        id={shape.id}
                                         {...shape}
                                         draggable
                                     />
@@ -250,6 +270,7 @@ export const KonvaCanva = () => {
                                 return (
                                     <Text
                                         key={shape.id}
+                                        id={shape.id}
                                         {...shape}
                                         draggable
                                         onDblClick={handleTextDblClick}
@@ -259,17 +280,15 @@ export const KonvaCanva = () => {
                                 return null;
                         }
                     })}
-                    {selectedId && (
-                        <Transformer
-                            boundBoxFunc={(oldBox, newBox) => {
-                                // Limit resize
-                                if (newBox.width < 5 || newBox.height < 5) {
-                                    return oldBox;
-                                }
-                                return newBox;
-                            }}
-                        />
-                    )}
+                    <Transformer
+                        ref={transformerRef}
+                        boundBoxFunc={(oldBox, newBox) => {
+                            if (newBox.width < 5 || newBox.height < 5) {
+                                return oldBox;
+                            }
+                            return newBox;
+                        }}
+                    />
                 </Layer>
             </Stage>
         </div>
