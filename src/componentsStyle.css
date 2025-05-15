@@ -1,0 +1,243 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#main-container {
+    position: relative; /* This establishes a positioning context for #options */
+    height: 100vh; /* Define a height for the container */
+}
+
+#options {
+    top: 1.5vh; /* Vertical position */
+    left: 30%; /* Horizontal position */
+    display: flex;
+    justify-content: space-evenly; /* Space between buttons */
+    align-items: center;
+    width: 40%; /* Width of the options container */
+    position: absolute; /* Positioning this relative to #main-container */
+    z-index: 10; /* Ensures it's above other elements */
+}
+
+#options button {
+    padding: 8px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 255, 0.336);
+    cursor: pointer; /* Add cursor to indicate clickable buttons */
+}
+
+#options input{
+    border-radius: 5px;
+}
+
+#extras{
+    position: absolute; /* Positioning this relative to #main-container */
+    z-index: 9; /* Ensures it's above other elements */
+}
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+#landingPageBody {
+    width: 100vw;
+    height: 100vh;
+}
+
+#navBar {
+    font-family: "Peddana", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.5rem;
+    margin-top: 1%;
+    padding: 5px;
+    display: flex;
+    gap: 80%;
+    justify-content: space-around;
+}
+
+#navBar h3:nth-child(2) {
+    color: rgba(255, 255, 255, 0.505);
+    font-weight: 100;
+}
+
+#heroSection {
+    position: relative;
+    top: 3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 7rem;
+    flex-direction: column;
+    font-family: "Cantata One", serif;
+    font-weight: 400;
+    font-style: normal;
+    transition: font-size 1s ease-in-out;
+    /* Smooth transition */
+    color: rgba(245, 245, 245, 0.626);
+}
+
+
+#heroSection:hover {
+    font-size: 7.4rem;
+    transition-duration: 0.8s;
+    transition-delay: 10ms;
+}
+
+#heroSection p:nth-child(2):hover {
+    background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
+    transition-timing-function: ease-out;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+#buttons {
+    width: 20%;
+    position: relative;
+    left: 40vw;
+    top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    transition: transform 1s ease-in-out;
+    /* Smooth transition */
+}
+
+#buttons:hover {
+    transform: scale(1.1);
+}
+
+#buttons button {
+    padding: 11px;
+    width: 50%;
+    border-radius: 20px;
+    background-color: rgba(245, 245, 245, 0.503);
+    color: black;
+    transition: background-color 0.5s ease, color 0.5s ease;
+    /* Smooth transition */
+}
+
+#image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 10vh;
+    font-size: 1.2rem;
+    color: #ffffff9d;
+    /* width: 30%; */
+}
+
+#landingPageBody ,#main-signpPage,  #main-LoginPage{
+    height:100vh;
+    margin: 0;
+    --x: calc(var(--posX, 0) * 1px);
+    --y: calc(var(--posY, 0) * 1px);
+    background-image: 
+      linear-gradient(115deg, rgb(211 255 215), rgb(0 0 0)), 
+      radial-gradient( 90% 100% at calc( 50% + var(--x)) calc( 0% + var(--y)), rgb(200 200 200), rgb(022 000 045)), 
+      radial-gradient(100% 100% at calc( 80% - var(--x)) calc( 0% - var(--y)), rgb(250 255 000), rgb(036 000 000)), 
+      radial-gradient(150% 210% at calc(100% + var(--x)) calc( 0% + var(--y)), rgb(020 175 125), rgb(000 010 255)), 
+      radial-gradient(100% 100% at calc(100% - var(--x)) calc(30% - var(--y)), rgb(255 077 000), rgb(000 200 255)), 
+      linear-gradient(60deg, rgb(255 000 000), rgb(120 086 255));
+    background-blend-mode: overlay, overlay, difference, difference, difference, normal;
+  }
+
+
+/* LoginPage  */
+#main-LoginPage{
+    position: relative;
+}
+
+#LoginComponent{
+    position: relative;
+    top: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.2vh;
+    
+}
+
+#LoginComponent input{
+padding: 5px;
+width: 15rem;
+border-radius: 5px;
+}
+
+#LoginComponent input:focus {
+    outline: none;
+    border: none;   
+}
+
+#main-LoginPage p{
+    font-size: 2.7rem;
+    font-family: "Peddana", serif;
+    font-weight: 100;
+    font-style: normal;
+    position: absolute;
+    left: 44.3%;
+    top: 31vh;
+    color: rgba(245, 245, 245, 0.603);;
+}
+#LoginComponent button{
+    padding: 5px;
+    width: 6rem;
+    border-radius: 8px;
+    background-color: rgba(245, 245, 245, 0.604);
+    
+}
+
+#main-signupPage{
+    position: relative;
+}
+
+#SignupComponent{
+    position: relative;
+    top: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.2vh;
+}
+
+#SignupComponent input{
+    padding: 5px;
+    width: 15rem;
+    border-radius: 5px;
+}
+
+#SignupComponent input:focus {
+    outline: none;
+    border: none;   
+}
+
+
+#main-signpPage p{
+    font-size: 2.7rem;
+    font-family: "Peddana", serif;
+    font-weight: 100;
+    font-style: normal;
+    position: absolute;
+    left: 44.3%;
+    top: 31vh;
+    color: rgba(245, 245, 245, 0.603);;
+}
+
+#SignupComponent button{
+    padding: 5px;
+    width: 6rem;
+    border-radius: 8px;
+    background-color: rgba(245, 245, 245, 0.604);
+    
+}
