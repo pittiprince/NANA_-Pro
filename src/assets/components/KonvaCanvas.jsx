@@ -87,11 +87,17 @@ export const KonvaCanva = () => {
         const newShapes = shapes.slice(0, -1);
         switch (lastShape.type) {
             case 'rect':
-            case 'circle':
                 newShapes.push({
                     ...lastShape,
                     width: pos.x - lastShape.x,
                     height: pos.y - lastShape.y,
+                });
+                break;
+            case 'circle':
+                newShapes.push({
+                    ...lastShape,
+                    width: Math.abs(pos.x - lastShape.x),
+                    height: Math.abs(pos.y - lastShape.y),
                 });
                 break;
             case 'line':
