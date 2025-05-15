@@ -1,16 +1,11 @@
 import '../../../src/componentsStyle.css'
 import { useNavigate } from 'react-router-dom';
 
-import { LoginPage } from './LoginPage';
-export const LandingPage = () =>{
+export const LandingPage = () => {
     const navigate = useNavigate(); 
-    const redirectLoginPage = () => {
-        navigate('/loginPage'); // Redirect to the login page
+    const redirectToCanvas = () => {
+        navigate('/canvas');
     };
-    const redirectsignupPage = () => {
-        navigate('/signupPage'); // Redirect to the login page
-    };
-    
 
     return (
         <div id='landingPageBody'>
@@ -23,15 +18,11 @@ export const LandingPage = () =>{
                <p id='life'>The Life</p>
             </div>
             <div id="buttons">
-                <button onClick={redirectLoginPage}>Login</button>
-                <button onClick={redirectsignupPage}>SignUp</button>
+                <button onClick={redirectToCanvas}>Create Canvas</button>
             </div>
             <div id="image">
-                <p>Bring your messy ideas on to canvas in a innovative way , and much more ! </p>
+                <p>Bring your messy ideas on to canvas in a innovative way , and much more!</p>
             </div>
         </div>
     )
-
-   
-      
 }

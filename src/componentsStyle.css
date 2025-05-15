@@ -5,37 +5,67 @@
 }
 
 #main-container {
-    position: relative; /* This establishes a positioning context for #options */
-    height: 100vh; /* Define a height for the container */
+    position: relative;
+    height: 100vh;
 }
 
 #options {
-    top: 1.5vh; /* Vertical position */
-    left: 30%; /* Horizontal position */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
     display: flex;
-    justify-content: space-evenly; /* Space between buttons */
+    justify-content: center;
     align-items: center;
-    width: 40%; /* Width of the options container */
-    position: absolute; /* Positioning this relative to #main-container */
-    z-index: 10; /* Ensures it's above other elements */
+    gap: 1rem;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 #options button {
-    padding: 8px;
-    border-radius: 10px;
-    background-color: rgba(0, 0, 255, 0.336);
-    cursor: pointer; /* Add cursor to indicate clickable buttons */
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    background: #4a90e2;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
 }
 
-#options input{
-    border-radius: 5px;
+#options button:hover {
+    background: #357abd;
+    transform: translateY(-1px);
+}
+
+#options button:active {
+    transform: translateY(1px);
+}
+
+#options input[type="color"] {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#stageContainer {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    background: #f5f5f5;
 }
 
 #extras{
-    position: absolute; /* Positioning this relative to #main-container */
-    z-index: 9; /* Ensures it's above other elements */
+    position: absolute;
+    z-index: 9;
 }
-
 
 * {
     padding: 0;
@@ -78,10 +108,8 @@
     font-weight: 400;
     font-style: normal;
     transition: font-size 1s ease-in-out;
-    /* Smooth transition */
     color: rgba(245, 245, 245, 0.626);
 }
-
 
 #heroSection:hover {
     font-size: 7.4rem;
@@ -94,7 +122,6 @@
     transition-timing-function: ease-out;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-
 }
 
 #buttons {
@@ -108,7 +135,6 @@
     justify-content: space-between;
     gap: 20px;
     transition: transform 1s ease-in-out;
-    /* Smooth transition */
 }
 
 #buttons:hover {
@@ -122,7 +148,6 @@
     background-color: rgba(245, 245, 245, 0.503);
     color: black;
     transition: background-color 0.5s ease, color 0.5s ease;
-    /* Smooth transition */
 }
 
 #image {
@@ -133,7 +158,6 @@
     top: 10vh;
     font-size: 1.2rem;
     color: #ffffff9d;
-    /* width: 30%; */
 }
 
 #landingPageBody ,#main-signpPage,  #main-LoginPage{
@@ -149,10 +173,8 @@
       radial-gradient(100% 100% at calc(100% - var(--x)) calc(30% - var(--y)), rgb(255 077 000), rgb(000 200 255)), 
       linear-gradient(60deg, rgb(255 000 000), rgb(120 086 255));
     background-blend-mode: overlay, overlay, difference, difference, difference, normal;
-  }
+}
 
-
-/* LoginPage  */
 #main-LoginPage{
     position: relative;
 }
@@ -165,13 +187,12 @@
     justify-content: center;
     align-items: center;
     gap: 1.2vh;
-    
 }
 
 #LoginComponent input{
-padding: 5px;
-width: 15rem;
-border-radius: 5px;
+    padding: 5px;
+    width: 15rem;
+    border-radius: 5px;
 }
 
 #LoginComponent input:focus {
@@ -187,14 +208,14 @@ border-radius: 5px;
     position: absolute;
     left: 44.3%;
     top: 31vh;
-    color: rgba(245, 245, 245, 0.603);;
+    color: rgba(245, 245, 245, 0.603);
 }
+
 #LoginComponent button{
     padding: 5px;
     width: 6rem;
     border-radius: 8px;
     background-color: rgba(245, 245, 245, 0.604);
-    
 }
 
 #main-signupPage{
@@ -222,7 +243,6 @@ border-radius: 5px;
     border: none;   
 }
 
-
 #main-signpPage p{
     font-size: 2.7rem;
     font-family: "Peddana", serif;
@@ -231,7 +251,7 @@ border-radius: 5px;
     position: absolute;
     left: 44.3%;
     top: 31vh;
-    color: rgba(245, 245, 245, 0.603);;
+    color: rgba(245, 245, 245, 0.603);
 }
 
 #SignupComponent button{
@@ -239,5 +259,4 @@ border-radius: 5px;
     width: 6rem;
     border-radius: 8px;
     background-color: rgba(245, 245, 245, 0.604);
-    
 }
